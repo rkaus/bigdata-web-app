@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+<h1>Search Results</h1>
+    <p>Total Recipes: {{ analysis_result.total_recipes }}</p>
+    <p>Total Calories: {{ analysis_result.total_calories }}</p>
+    <p>Average Calories: {{ analysis_result.average_calories }}</p>
+    <p>Most Common Cuisine: {{ analysis_result.most_common_cuisine }}</p>
+
+{% if recipes %}
+<ul>
+    {% for recipe in recipes %}
+    <li>
+        <h2>{{ recipe.name }}</h2>
+        <p>Ingredients: {{ recipe.ingredients }}</p>
+        <p>Calories: {{ recipe.calories }}</p>
+        <p>Cuisine Type: {{ recipe.cuisine_type }}</p>
+        <a href="{{ recipe.url }}" target="_blank">View Recipe</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No recipes found.</p>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build:
+      context: .
+    ports:
+      - "8080:5000"  # Change port mapping to 8080
+    depends_on:
+      - rabbitmq
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+
+  sqlite:
+    image: "alpine"
+    volumes:
+      - "./data:/data"
+    command: ["sh", "-c", "apk add --no-cache sqlite && sqlite3 /data/recipes.db"]
+
